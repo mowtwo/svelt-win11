@@ -1,17 +1,52 @@
 <script lang="ts">
   import DesktopBar from "@/components/DesktopBar.svelte";
   import DesktopBackground from "@/components/DesktopBackground.svelte";
+  import ContentMenuWrapper from "@/components/ContentMenuWrapper.svelte";
+  import ContentMenuGroup from "@/components/ContentMenuGroup.svelte";
+  import ContentMenuItem from "@/components/ContentMenuItem.svelte";
   export let wallpaper = "";
+
+  export let menuShow = {
+    desktop: false,
+    bar: false,
+  };
+
+  const onMenuShow = (key: keyof typeof menuShow) => {
+    return () => {
+      const temp = { ...menuShow };
+      for (const k in temp) {
+        if (k !== key) {
+          temp[k] = false;
+        }
+      }
+      menuShow = temp;
+    };
+  };
 </script>
 
 <div class="desktop">
   <div class="fill">
-    <DesktopBackground {wallpaper}>
-      <slot />
-    </DesktopBackground>
+    <ContentMenuWrapper
+      bind:menuShow={menuShow.desktop}
+      on:menuShow={onMenuShow("desktop")}
+    >
+      <DesktopBackground {wallpaper}>
+        <slot />
+      </DesktopBackground>
+      <div class="menu" slot="menu">
+        <ContentMenuGroup>
+          <ContentMenuItem text="测试" />
+        </ContentMenuGroup>
+      </div>
+    </ContentMenuWrapper>
   </div>
   <div class="bottom">
-    <DesktopBar />
+    <ContentMenuWrapper
+      bind:menuShow={menuShow.bar}
+      on:menuShow={onMenuShow("bar")}
+    >
+      <DesktopBar />
+    </ContentMenuWrapper>
   </div>
 </div>
 
