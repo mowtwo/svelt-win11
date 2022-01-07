@@ -1,6 +1,7 @@
 <script lang="ts">
   import resolveClass from "@/utils/resolveClass";
   import { createEventDispatcher } from "svelte";
+  import MoreIcon from "../assets/svg/win11/more.svg";
 
   interface Dispatch {
     click: {
@@ -38,11 +39,11 @@
       <div class="text">{text}</div>
     </slot>
   </div>
-  {#if more}
-    <div class="more">
-      <i class="iconfont icon-more" />
-    </div>
-  {/if}
+  <div class="more">
+    {#if more}
+      <MoreIcon />
+    {/if}
+  </div>
 </div>
 
 {#if showMore}
@@ -52,4 +53,37 @@
 {/if}
 
 <style lang="scss">
+  .item {
+    display: flex;
+    margin: 6px;
+    padding: 6px;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 4px;
+    &:hover {
+      background-color: var(--menu-focus);
+    }
+    .icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 12px;
+    }
+    .content {
+      flex: 1;
+      overflow: hidden;
+      .text {
+        font-size: 12px;
+        color: var(--text);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+    .more {
+      width: 10px;
+      height: 10px;
+      font-size: 0;
+      text-align: right;
+    }
+  }
 </style>
