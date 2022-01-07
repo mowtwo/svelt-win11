@@ -11,6 +11,10 @@
   import DisplaySettingIcon from "../assets/svg/win11/displaySetting.svg";
   import PersonalizeIcon from "../assets/svg/win11/personalize.svg";
   import usePartialSvltComp from "@/utils/usePartialSvltComp";
+  import ContentMenuPanel from "@/components/ContentMenuPanel.svelte";
+  import type { ContentMenuCheckItem } from "@/vite-env";
+  import ContentMenuRadioGroup from "@/components/ContentMenuRadioGroup.svelte";
+  import sleep from "@/utils/sleep";
   export let wallpaper = "";
 
   export let menuShow = {
@@ -21,8 +25,6 @@
   const NoIconContentMenuItem = usePartialSvltComp(ContentMenuItem, {
     iconAlwayShow: false,
   });
-
-  console.log(NoIconContentMenuItem);
 
   const onMenuShow = (key: keyof typeof menuShow) => {
     return () => {
@@ -35,6 +37,12 @@
       menuShow = temp;
     };
   };
+  const viewModes: ContentMenuCheckItem[] = [
+    { value: "small", label: "小图标" },
+    { value: "medium", label: "中等图标" },
+    { value: "large", label: "大图标" },
+  ];
+  let viewMode = { value: "medium", label: "中等图标" };
 </script>
 
 <div class="desktop">
@@ -42,16 +50,27 @@
     <ContentMenuWrapper
       bind:menuShow={menuShow.desktop}
       on:menuShow={onMenuShow("desktop")}
+      let:util
     >
       <DesktopBackground {wallpaper}>
         <slot />
       </DesktopBackground>
       <div class="menu" slot="menu">
         <ContentMenuGroup>
-          <ContentMenuItem text="布局方式" more>
+          <ContentMenuItem text="布局方式" more showMoreTrigger="click">
             <div class="svg" slot="icon">
               <ViewIcon />
             </div>
+            <ContentMenuPanel slot="sub" width={188}>
+              <ContentMenuRadioGroup
+                list={viewModes}
+                bind:value={viewMode}
+                on:itemClick={async () => {
+                  await sleep(100);
+                  util.hideMenu();
+                }}
+              />
+            </ContentMenuPanel>
           </ContentMenuItem>
           <ContentMenuItem text="排序方式" more>
             <div class="svg" slot="icon">
@@ -65,7 +84,7 @@
           </ContentMenuItem>
         </ContentMenuGroup>
         <ContentMenuGroup>
-          <ContentMenuItem text="新建">
+          <ContentMenuItem text="新建" more>
             <div class="svg" slot="icon">
               <NewIcon />
             </div>

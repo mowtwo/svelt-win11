@@ -2,6 +2,7 @@
   import { onMount, tick, createEventDispatcher } from "svelte";
 
   import { fade } from "svelte/transition";
+  import ContentMenuPanel from "./ContentMenuPanel.svelte";
 
   interface Dispatch {
     menuShow: undefined;
@@ -10,8 +11,6 @@
   export let menuZIndex = 9999;
   export let menuShow = false;
   export let menuWidth: number | string = 310;
-  $: menuWidthStyle =
-    typeof menuWidth === "number" ? menuWidth + "px" : String(menuWidth);
 
   const dispatch = createEventDispatcher<Dispatch>();
 
@@ -86,12 +85,14 @@
 {#if menuShow}
   <div
     class="menu-wrapper"
-    style={`z-index:${menuZIndex};top:${mousePoint.y}px;left:${mousePoint.x}px;width:${menuWidthStyle}`}
+    style={`z-index:${menuZIndex};top:${mousePoint.y}px;left:${mousePoint.x}px`}
     transition:fade={{ duration: 100 }}
     on:click|stopPropagation
     bind:this={wrapperThis}
   >
-    <slot name="menu" />
+    <ContentMenuPanel width={menuWidth}>
+      <slot name="menu" />
+    </ContentMenuPanel>
   </div>
 {/if}
 
@@ -103,12 +104,7 @@
   }
   .menu-wrapper {
     position: fixed;
-    width: 310px;
-    overflow: hidden;
-    border-radius: 8px;
-    background-color: var(--panel);
     top: -10000px;
     left: -10000px;
-    backdrop-filter: saturate(2) blur(20px);
   }
 </style>

@@ -76,3 +76,8 @@ export type CssColorVarKeys =
   | 'bar-focus'
 
 export type CtorFirstParam<T extends abstract new () => any> = T extends abstract new (arg0: infer U, ...args: any[]) => any ? U : never
+
+export interface ContentMenuCheckItem {
+  value: string
+  label?: string
+}
