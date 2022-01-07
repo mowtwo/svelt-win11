@@ -72,3 +72,5 @@ export type CssColorVarKeys =
   | 'window-footer'
   | 'active-bar'
   | 'bar'
+  | 'menu-focus'
+  | 'bar-focus'

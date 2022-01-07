@@ -84,7 +84,7 @@
   <div
     class="menu-wrapper"
     style={`z-index:${menuZIndex};top:${mousePoint.y}px;left:${mousePoint.x}px;`}
-    transition:fade={{ duration: 200 }}
+    transition:fade={{ duration: 100 }}
     on:click|stopPropagation
     bind:this={wrapperThis}
   >
@@ -101,7 +101,6 @@
   .menu-wrapper {
     position: fixed;
     width: 310px;
-    min-height: 60px;
     overflow: hidden;
     border-radius: 8px;
     background-color: var(--panel);

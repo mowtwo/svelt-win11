@@ -15,7 +15,9 @@ export const light: Record<CssColorVarKeys, string> = {
   "window-top": '#edf2fe',
   "window-footer": '#f5f5f5',
   "active-bar": 'hsla(0,0%,100%,0.67)',
-  bar: 'hsla(0,0%,95.3%,0.85)'
+  bar: 'hsla(0,0%,95.3%,0.85)',
+  "menu-focus": 'rgba(0,0,0,0.08)',
+  "bar-focus": 'hsla(0,0%,100%,0.9)'
 }
 
 export const dark: Record<CssColorVarKeys, string> = {
@@ -33,7 +35,9 @@ export const dark: Record<CssColorVarKeys, string> = {
   "window-top": '#19212e',
   "window-footer": '#1c1c1c',
   "active-bar": 'hsla(0,0%,100%,0.1)',
-  bar: 'rgba(32,32,32,0.75)'
+  bar: 'rgba(32,32,32,0.75)',
+  "menu-focus": 'hsla(0,0%,100%,0.08)',
+  "bar-focus": 'hsla(0,0%,100%,0.1)'
 }
 
 const resolveCssVar = (name: string, value: string) => {
