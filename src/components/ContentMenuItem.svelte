@@ -4,10 +4,9 @@
 
 <script lang="ts">
   import resolveClass from "@/utils/resolveClass";
-  import throttle from "@/utils/throttle";
-  import { createEventDispatcher, onDestroy, onMount, tick } from "svelte";
-  import { Unsubscriber, writable } from "svelte/store";
+  import { createEventDispatcher, onMount } from "svelte";
   import MoreIcon from "../assets/svg/win11/more.svg";
+  import ContentMenuSubMenu from "./ContentMenuSubMenu.svelte";
 
   interface Dispatch {
     click: {
@@ -30,25 +29,29 @@
   export let showMoreDelay = 200;
   let itemThis: HTMLDivElement;
 
-  let showMore = writable(false);
-  let firstShowSub = true;
-  let subMenuThis: HTMLDivElement;
+  let showMore = false;
   let subOffset = 0;
   let subMenuAlign: "left" | "right" = "left";
-  $: subOffsetStyle = `${subMenuAlign}:${subOffset - 10}px`;
-  const showMoreUnSubScribe = showMore.subscribe(
-    (v) => {
-      console.log(subMenuThis, v);
-    },
-    (v) => v
-  );
+  let subMenuWidth = 0;
   onMount(() => {
     const { clientWidth } = itemThis;
     subOffset = clientWidth;
   });
-  onDestroy(() => {
-    showMoreUnSubScribe();
-  });
+  $: {
+    // 不是最佳做法，可以考虑优化
+    // 实现子菜单位置判断
+    if (showMore && subMenuWidth > 0) {
+      const { innerWidth } = window;
+      const { width, x } = itemThis.getBoundingClientRect();
+      if (innerWidth - (x + width) < subMenuWidth - 10) {
+        console.log("right");
+        subMenuAlign = "right";
+      } else {
+        console.log("left");
+        subMenuAlign = "left";
+      }
+    }
+  }
 </script>
 
 <div
@@ -56,13 +59,13 @@
   on:mouseleave={() => {
     clearTimeout(delayTimer);
     if (more && showMoreTrigger === "hover") {
-      $showMore = false;
+      showMore = false;
     }
   }}
   on:mouseenter={() => {
     if (more && showMoreTrigger === "hover") {
       delayTimer = setTimeout(() => {
-        $showMore = true;
+        showMore = true;
       }, showMoreDelay);
     }
   }}
@@ -72,7 +75,7 @@
     bind:this={itemThis}
     on:click={() => {
       if (more && showMoreTrigger === "click") {
-        $showMore = true;
+        showMore = true;
       }
       dispatch("click", {
         text,
@@ -100,15 +103,14 @@
     </div>
   </div>
 
-  {#if $showMore}
-    <div
-      class="sub-menu"
-      class:first={firstShowSub && $showMore}
-      style={subOffsetStyle}
-      bind:this={subMenuThis}
+  {#if showMore}
+    <ContentMenuSubMenu
+      align={subMenuAlign}
+      offset={subOffset}
+      bind:outWidth={subMenuWidth}
     >
       <slot name="sub" />
-    </div>
+    </ContentMenuSubMenu>
   {/if}
 </div>
 
@@ -148,14 +150,6 @@
         height: 10px;
         font-size: 0;
         text-align: right;
-      }
-    }
-    .sub-menu {
-      position: absolute;
-      z-index: 2;
-      top: 0;
-      &.first {
-        visibility: hidden;
       }
     }
   }

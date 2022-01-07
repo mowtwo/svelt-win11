@@ -57,7 +57,7 @@
       </DesktopBackground>
       <div class="menu" slot="menu">
         <ContentMenuGroup>
-          <ContentMenuItem text="布局方式" more showMoreTrigger="click">
+          <ContentMenuItem text="布局方式" more showMoreTrigger="hover">
             <div class="svg" slot="icon">
               <ViewIcon />
             </div>
