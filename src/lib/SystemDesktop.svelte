@@ -4,7 +4,7 @@
   import ContentMenuWrapper from "@/components/ContentMenuWrapper.svelte";
   import ContentMenuGroup from "@/components/ContentMenuGroup.svelte";
   import ContentMenuItem from "@/components/ContentMenuItem.svelte";
-  import SvgIcon from "../assets/svg/win11/view.svg";
+  import ViewIcon from "../assets/svg/win11/view.svg";
   export let wallpaper = "";
 
   export let menuShow = {
@@ -36,16 +36,9 @@
       </DesktopBackground>
       <div class="menu" slot="menu">
         <ContentMenuGroup>
-          <ContentMenuItem text="测试" more>
+          <ContentMenuItem text="布局方式" more>
             <div class="svg" slot="icon">
-              <SvgIcon />
-            </div>
-          </ContentMenuItem>
-        </ContentMenuGroup>
-        <ContentMenuGroup>
-          <ContentMenuItem text="测试" more>
-            <div class="svg" slot="icon">
-              <SvgIcon />
+              <ViewIcon />
             </div>
           </ContentMenuItem>
         </ContentMenuGroup>
