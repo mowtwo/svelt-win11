@@ -3,7 +3,7 @@
   import type { Unsubscriber } from "svelte/store";
   import myComputerIcon from "@/assets/desktop-shortcut/userDir.png"
 
-  import MyComputer from "./components/shotcuts/MyComputer.svelte";
+  import MyComputer from "./components/Shortcut.svelte";
   import SystemDesktop from "./lib/SystemDesktop.svelte";
   import { themeMode, wallpaper } from "./store/config";
   import { getTheme } from "./store/theme.css";
@@ -40,7 +40,7 @@
   </div>
 </div>
 
-<MyComputer id="my-computer" icon={myComputerIcon}></MyComputer>
+<MyComputer id="my-computer" icon={myComputerIcon} name="My Computer" position={[10, 10]}></MyComputer>
 
 <SystemDesktop wallpaper={$wallpaper}>
   <div class="app-container" />

@@ -1,19 +1,18 @@
 <script lang="ts">
-  export let icon
+  export let icon, name, position
+  let style = `left: ${position[0]}px; top: ${position[1]}px`
 </script>
 
-<div class="dskApp" id="my-computer">
-  <img width="36" src="{icon}" />
-  <div class="appName">My Computer</div>
+<div class="dskApp container" {style}>
+  <img width="36" src="{icon}" alt="icon" />
+  <div class="appName">{name}</div>
 </div>
 
 <style lang="scss">
 
-  #my-computer {
+  .container {
     position: fixed;
     z-index: 999999999999;
-    left: 10px;
-    top: 10px;
     width: 120px;
     min-height: 100px;
     text-align: center;
