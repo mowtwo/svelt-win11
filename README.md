@@ -7,3 +7,13 @@
 - [ ] 暗黑模式
 ## 技术栈
 Svelte + TS + Vite
+
+## QA
+
+回答一些没啥用的问题
+
+### 能吃鸡不
+
+![image-20220107145957402](https://raw.githubusercontent.com/mowtwo/pic-go/main/markdown/image-20220107145957402.png)
+
+> 不能
