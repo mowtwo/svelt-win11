@@ -74,3 +74,5 @@ export type CssColorVarKeys =
   | 'bar'
   | 'menu-focus'
   | 'bar-focus'
+
+export type CtorFirstParam<T extends abstract new () => any> = T extends abstract new (arg0: infer U, ...args: any[]) => any ? U : never

@@ -9,6 +9,9 @@
 
   export let menuZIndex = 9999;
   export let menuShow = false;
+  export let menuWidth: number | string = 310;
+  $: menuWidthStyle =
+    typeof menuWidth === "number" ? menuWidth + "px" : String(menuWidth);
 
   const dispatch = createEventDispatcher<Dispatch>();
 
@@ -83,7 +86,7 @@
 {#if menuShow}
   <div
     class="menu-wrapper"
-    style={`z-index:${menuZIndex};top:${mousePoint.y}px;left:${mousePoint.x}px;`}
+    style={`z-index:${menuZIndex};top:${mousePoint.y}px;left:${mousePoint.x}px;width:${menuWidthStyle}`}
     transition:fade={{ duration: 100 }}
     on:click|stopPropagation
     bind:this={wrapperThis}

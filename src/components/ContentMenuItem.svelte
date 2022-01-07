@@ -15,6 +15,7 @@
   export let icon = "";
   export let iconGroup = "iconfont";
   export let iconPrev = "icon";
+  export let iconAlwayShow = true;
   export let more = false;
 
   let showMore = false;
@@ -27,13 +28,15 @@
       text,
     })}
 >
-  <div class="icon">
-    <slot name="icon">
-      {#if icon !== ""}
-        <i class={resolveClass(iconGroup, `${iconPrev}-${icon}`)} />
-      {/if}
-    </slot>
-  </div>
+  {#if iconAlwayShow}
+    <div class="icon">
+      <slot name="icon">
+        {#if icon !== ""}
+          <i class={resolveClass(iconGroup, `${iconPrev}-${icon}`)} />
+        {/if}
+      </slot>
+    </div>
+  {/if}
   <div class="content">
     <slot>
       <div class="text">{text}</div>
