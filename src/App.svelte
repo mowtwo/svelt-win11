@@ -1,7 +1,9 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
   import type { Unsubscriber } from "svelte/store";
+  import myComputerIcon from "@/assets/desktop-shortcut/userDir.png"
 
+  import MyComputer from "./components/shotcuts/MyComputer.svelte";
   import SystemDesktop from "./lib/SystemDesktop.svelte";
   import { themeMode, wallpaper } from "./store/config";
   import { getTheme } from "./store/theme.css";
@@ -37,6 +39,8 @@
     >
   </div>
 </div>
+
+<MyComputer id="my-computer" icon={myComputerIcon}></MyComputer>
 
 <SystemDesktop wallpaper={$wallpaper}>
   <div class="app-container" />
