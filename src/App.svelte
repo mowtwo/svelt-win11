@@ -2,6 +2,7 @@
   import { onDestroy, onMount } from "svelte";
   import type { Unsubscriber } from "svelte/store";
 
+  import ShortcutSystem from './lib/ShortcutSystem.svelte';
   import SystemDesktop from "./lib/SystemDesktop.svelte";
   import { themeMode, wallpaper } from "./store/config";
   import { getTheme } from "./store/theme.css";
@@ -37,6 +38,8 @@
     >
   </div>
 </div>
+
+<ShortcutSystem />
 
 <SystemDesktop wallpaper={$wallpaper}>
   <div class="app-container" />
