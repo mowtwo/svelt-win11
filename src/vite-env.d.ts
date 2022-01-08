@@ -77,7 +77,12 @@ export type CssColorVarKeys =
 
 export type CtorFirstParam<T extends abstract new () => any> = T extends abstract new (arg0: infer U, ...args: any[]) => any ? U : never
 
-export interface ContentMenuCheckItem {
-  value: string
-  label?: string
+export interface ContentMenuCheckItem<V extends string = string, L extends string = string> {
+  value: V
+  label?: L
 }
+export type CkDesktopViewModes = 'small' | 'medium' | 'large'
+export type CkDesktopShowShort = 'show'
+export type CkDesktiopSortBy = 'name' | 'size' | 'modify_date'
+export type CkBarIconAlign = 'left' | 'center'
+export type CkBarNormalShowHide = 'show' | 'hide'

@@ -116,6 +116,7 @@
 
 <style lang="scss">
   .block {
+    position: relative;
     .item {
       position: relative;
       z-index: 1;
