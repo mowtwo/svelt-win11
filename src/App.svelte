@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
   import type { Unsubscriber } from "svelte/store";
-  import myComputerIcon from "@/assets/desktop-shortcut/userDir.png"
 
-  import MyComputer from "./components/Shortcut.svelte";
+  import Shortcut from "./components/Shortcut.svelte";
+  import shortcutCollection from "./store/desktopShortcuts";
   import SystemDesktop from "./lib/SystemDesktop.svelte";
   import { themeMode, wallpaper } from "./store/config";
   import { getTheme } from "./store/theme.css";
@@ -39,8 +39,9 @@
     >
   </div>
 </div>
-
-<MyComputer id="my-computer" icon={myComputerIcon} name="My Computer" position={[10, 10]}></MyComputer>
+{#each shortcutCollection as {icon, name, position}}
+  <Shortcut {icon} {name} {position}></Shortcut>
+{/each}
 
 <SystemDesktop wallpaper={$wallpaper}>
   <div class="app-container" />
