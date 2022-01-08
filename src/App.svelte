@@ -2,8 +2,7 @@
   import { onDestroy, onMount } from "svelte";
   import type { Unsubscriber } from "svelte/store";
 
-  import Shortcut from "./components/Shortcut.svelte";
-  import shortcutCollection from "./store/desktopShortcuts";
+  import ShortcutSystem from './lib/ShortcutSystem.svelte';
   import SystemDesktop from "./lib/SystemDesktop.svelte";
   import { themeMode, wallpaper } from "./store/config";
   import { getTheme } from "./store/theme.css";
@@ -39,9 +38,8 @@
     >
   </div>
 </div>
-{#each shortcutCollection as {icon, name, position}}
-  <Shortcut {icon} {name} {position}></Shortcut>
-{/each}
+
+<ShortcutSystem />
 
 <SystemDesktop wallpaper={$wallpaper}>
   <div class="app-container" />
