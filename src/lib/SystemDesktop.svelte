@@ -12,9 +12,16 @@
   import PersonalizeIcon from "../assets/svg/win11/personalize.svg";
   import usePartialSvltComp from "@/utils/usePartialSvltComp";
   import ContentMenuPanel from "@/components/ContentMenuPanel.svelte";
-  import type { ContentMenuCheckItem } from "@/vite-env";
+  import type {
+    CkBarIconAlign,
+    CkBarNormalShowHide,
+    CkDesktiopSortBy,
+    CkDesktopShowShort,
+    CkDesktopViewModes,
+    ContentMenuCheckItem,
+  } from "@/vite-env";
   import ContentMenuRadioGroup from "@/components/ContentMenuRadioGroup.svelte";
-  import sleep from "@/utils/sleep";
+  import ContentMenuCheckGroup from "@/components/ContentMenuCheckGroup.svelte";
   export let wallpaper = "";
 
   export let menuShow = {
@@ -24,6 +31,18 @@
 
   const NoIconContentMenuItem = usePartialSvltComp(ContentMenuItem, {
     iconAlwayShow: false,
+  });
+  const SubMenuPanel = usePartialSvltComp(ContentMenuPanel, {
+    width: 188,
+  });
+
+  const subMenuHideDelay = 200;
+
+  const DelayMenuRadioGroup = usePartialSvltComp(ContentMenuRadioGroup, {
+    hideDelay: subMenuHideDelay,
+  });
+  const DelayMenuCheckGroup = usePartialSvltComp(ContentMenuCheckGroup, {
+    hideDelay: subMenuHideDelay,
   });
 
   const onMenuShow = (key: keyof typeof menuShow) => {
@@ -37,12 +56,40 @@
       menuShow = temp;
     };
   };
-  const viewModes: ContentMenuCheckItem[] = [
+  const viewModes: ContentMenuCheckItem<CkDesktopViewModes>[] = [
     { value: "small", label: "小图标" },
     { value: "medium", label: "中等图标" },
     { value: "large", label: "大图标" },
   ];
-  let viewMode = { value: "medium", label: "中等图标" };
+  let viewMode = viewModes[0];
+  const showDesktopShortcutList: ContentMenuCheckItem<CkDesktopShowShort>[] = [
+    {
+      value: "show",
+      label: "显示桌面图标",
+    },
+  ];
+  let showDesktopShortcut = [...showDesktopShortcutList];
+  const sortByList: ContentMenuCheckItem<CkDesktiopSortBy>[] = [
+    { value: "name", label: "文件名" },
+    { value: "size", label: "文件大小" },
+    { value: "modify_date", label: "修改时间" },
+  ];
+  let sortBy: ContentMenuCheckItem = sortByList[0];
+  const barIconAlignList: ContentMenuCheckItem<CkBarIconAlign>[] = [
+    { value: "left", label: "左边" },
+    { value: "center", label: "居中" },
+  ];
+  let barIconAlign = barIconAlignList[1];
+  const barSearchShowHideList: ContentMenuCheckItem<CkBarNormalShowHide>[] = [
+    { value: "show", label: "显示" },
+    { value: "hide", label: "隐藏" },
+  ];
+  let barSearchShowHide = barSearchShowHideList[0];
+  const barWidgetsShowHideList: ContentMenuCheckItem<CkBarNormalShowHide>[] = [
+    { value: "show", label: "显示" },
+    { value: "hide", label: "隐藏" },
+  ];
+  let barWidgetsShowHide = barWidgetsShowHideList[0];
 </script>
 
 <div class="desktop">
@@ -61,21 +108,30 @@
             <div class="svg" slot="icon">
               <ViewIcon />
             </div>
-            <ContentMenuPanel slot="sub" width={188}>
-              <ContentMenuRadioGroup
+            <SubMenuPanel slot="sub">
+              <DelayMenuRadioGroup
                 list={viewModes}
                 bind:value={viewMode}
-                on:itemClick={async () => {
-                  await sleep(100);
-                  util.hideMenu();
-                }}
+                on:itemClick={util.hideMenu}
               />
-            </ContentMenuPanel>
+              <DelayMenuCheckGroup
+                list={showDesktopShortcutList}
+                bind:value={showDesktopShortcut}
+                on:itemClick={util.hideMenu}
+              />
+            </SubMenuPanel>
           </ContentMenuItem>
           <ContentMenuItem text="排序方式" more>
             <div class="svg" slot="icon">
               <SortByIcon />
             </div>
+            <SubMenuPanel slot="sub">
+              <DelayMenuRadioGroup
+                list={sortByList}
+                bind:value={sortBy}
+                on:itemClick={util.hideMenu}
+              />
+            </SubMenuPanel>
           </ContentMenuItem>
           <ContentMenuItem text="刷新">
             <div class="svg" slot="icon">
@@ -113,15 +169,40 @@
       bind:menuShow={menuShow.bar}
       on:menuShow={onMenuShow("bar")}
       menuWidth={220}
+      let:util
     >
       <DesktopBar />
       <div class="menu" slot="menu">
         <ContentMenuGroup>
-          <NoIconContentMenuItem text="图标对齐方式" more />
+          <NoIconContentMenuItem text="图标对齐方式" more>
+            <SubMenuPanel slot="sub">
+              <DelayMenuRadioGroup
+                list={barIconAlignList}
+                bind:value={barIconAlign}
+                on:itemClick={util.hideMenu}
+              />
+            </SubMenuPanel>
+          </NoIconContentMenuItem>
         </ContentMenuGroup>
         <ContentMenuGroup>
-          <NoIconContentMenuItem text="搜索" more />
-          <NoIconContentMenuItem text="小组件" more />
+          <NoIconContentMenuItem text="搜索" more>
+            <SubMenuPanel slot="sub">
+              <DelayMenuRadioGroup
+                list={barSearchShowHideList}
+                bind:value={barSearchShowHide}
+                on:itemClick={util.hideMenu}
+              />
+            </SubMenuPanel>
+          </NoIconContentMenuItem>
+          <NoIconContentMenuItem text="小组件" more>
+            <SubMenuPanel slot="sub">
+              <DelayMenuRadioGroup
+                list={barWidgetsShowHideList}
+                bind:value={barWidgetsShowHide}
+                on:itemClick={util.hideMenu}
+              />
+            </SubMenuPanel>
+          </NoIconContentMenuItem>
         </ContentMenuGroup>
         <ContentMenuGroup>
           <NoIconContentMenuItem text="显示桌面" />
