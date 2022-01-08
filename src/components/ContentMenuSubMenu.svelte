@@ -2,8 +2,6 @@
 </script>
 
 <script lang="ts">
-  import { on } from "events";
-
   import { onMount } from "svelte";
 
   export let align: "left" | "right" = "left";
