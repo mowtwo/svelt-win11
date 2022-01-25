@@ -22,6 +22,10 @@
   } from "@/vite-env";
   import ContentMenuRadioGroup from "@/components/ContentMenuRadioGroup.svelte";
   import ContentMenuCheckGroup from "@/components/ContentMenuCheckGroup.svelte";
+  import DesktopBarTime from "@/components/DesktopBarTime.svelte";
+  import DesktopBarBlock from "@/components/DesktopBarBlock.svelte";
+  import WifiPng from "@/assets/bar/wifi.png";
+  import { volumeIcon } from "@/store/config";
   export let wallpaper = "";
 
   export let menuShow = {
@@ -171,7 +175,18 @@
       menuWidth={220}
       let:util
     >
-      <DesktopBar />
+      <DesktopBar>
+        <DesktopBarBlock flexAlign="row">
+          <img class="bar-status-icon" src={WifiPng} alt="icon" />
+          <img class="bar-status-icon" src={$volumeIcon} alt="icon" />
+        </DesktopBarBlock>
+        <DesktopBarTime
+          on:click={() => {
+            console.log("click");
+          }}
+        />
+        <div class="show-desktop" />
+      </DesktopBar>
       <div class="menu" slot="menu">
         <ContentMenuGroup>
           <NoIconContentMenuItem text="图标对齐方式" more>
@@ -238,6 +253,15 @@
       bottom: 0;
       width: 100vw;
       height: 48px;
+      .show-desktop {
+        width: 18px;
+      }
+      .bar-status-icon {
+        width: 16px;
+        height: 16px;
+        object-fit: cover;
+        margin: 0 4px;
+      }
     }
   }
 </style>

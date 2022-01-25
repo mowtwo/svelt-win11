@@ -86,3 +86,5 @@ export type CkDesktopShowShort = 'show'
 export type CkDesktiopSortBy = 'name' | 'size' | 'modify_date'
 export type CkBarIconAlign = 'left' | 'center'
 export type CkBarNormalShowHide = 'show' | 'hide'
+
+export type FlexAlign = 'column' | 'row'

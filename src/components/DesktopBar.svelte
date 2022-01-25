@@ -30,5 +30,14 @@
     background-color: var(--bar);
     backdrop-filter: saturate(3) blur(20px);
     transition: 0.3s ease;
+    position: relative;
+    .right {
+      position: absolute;
+      right: 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 </style>
