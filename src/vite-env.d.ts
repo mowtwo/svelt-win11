@@ -88,3 +88,10 @@ export type CkBarIconAlign = 'left' | 'center'
 export type CkBarNormalShowHide = 'show' | 'hide'
 
 export type FlexAlign = 'column' | 'row'
+
+export interface ShortcutInfo {
+  icon: string
+  name: string
+  position: [x: number, y: number]
+  title: string
+}

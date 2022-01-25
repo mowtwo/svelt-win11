@@ -22,6 +22,7 @@
     min-height: 100px;
     text-align: center;
     line-height: 20px;
+    user-select: none;
   }
   .appName {
     text-align: center;
@@ -32,8 +33,17 @@
   }
   .dskApp {
     font-size: 12.8px;
+    transition: all 0.2s ease-in-out;
     &:hover {
-      background-color: rgba($color: #fff, $alpha: 0.6);
+      background-color: hsla(0, 0%, 100%, 0.25);
+    }
+    & > img {
+      transition: all 0.2s ease-in-out;
+    }
+    &:active {
+      & > img {
+        transform: scale(0.8);
+      }
     }
   }
 </style>

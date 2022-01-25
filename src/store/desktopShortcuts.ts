@@ -1,8 +1,9 @@
 
 import myComputer from "@/assets/desktop-shortcut/userDir.png";
 import recycleBin from "@/assets/desktop-shortcut/bin0.png";
+import type { ShortcutInfo } from "@/vite-env";
 
-export default [
+export default <ShortcutInfo[]>[
   {
     icon: myComputer, name: '我的电脑', position: [10, 10], title: '我的电脑'
   },
