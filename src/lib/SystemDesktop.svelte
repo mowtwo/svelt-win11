@@ -25,7 +25,7 @@
   import DesktopBarTime from "@/components/DesktopBarTime.svelte";
   import DesktopBarBlock from "@/components/DesktopBarBlock.svelte";
   import WifiPng from "@/assets/bar/wifi.png";
-  import { volumeIcon } from "@/store/config";
+  import { themeMode, volumeIcon } from "@/store/config";
   export let wallpaper = "";
 
   export let menuShow = {
@@ -177,8 +177,18 @@
     >
       <DesktopBar>
         <DesktopBarBlock flexAlign="row">
-          <img class="bar-status-icon" src={WifiPng} alt="icon" />
-          <img class="bar-status-icon" src={$volumeIcon} alt="icon" />
+          <img
+            class="bar-status-icon"
+            class:invert={$themeMode === "dark"}
+            src={WifiPng}
+            alt="icon"
+          />
+          <img
+            class="bar-status-icon"
+            class:invert={$themeMode === "dark"}
+            src={$volumeIcon}
+            alt="icon"
+          />
         </DesktopBarBlock>
         <DesktopBarTime
           on:click={() => {
@@ -261,6 +271,9 @@
         height: 16px;
         object-fit: cover;
         margin: 0 4px;
+        &.invert {
+          filter: invert(1);
+        }
       }
     }
   }
