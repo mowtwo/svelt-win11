@@ -1,10 +1,13 @@
 <script lang="ts">
-  export let icon, name, position, title
-  let style = `left: ${position[0]}px; top: ${position[1]}px`
+  export let icon: string;
+  export let name: string;
+  export let position: number[];
+  export let title: string;
+  let style = `left: ${position[0]}px; top: ${position[1]}px`;
 </script>
 
-<div class="dskApp container" {style} title={title}>
-  <img width="36" src="{icon}" alt="icon" />
+<div class="dskApp container" {style} {title}>
+  <img width="36" src={icon} alt="icon" />
   <div class="appName">{name}</div>
 </div>
 
